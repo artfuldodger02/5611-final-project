@@ -70,6 +70,7 @@ size = Vector2(34, 91)
 size = Vector2(37, 100)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sfwda"]
+radius = 10.0304
 
 [sub_resource type="Resource" id="Resource_hom1u"]
 script = ExtResource("7_smlp3")
