@@ -1,12 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://brm6evk7y4fpa"]
+[gd_scene load_steps=12 format=3 uid="uid://brm6evk7y4fpa"]
 
 [ext_resource type="Texture2D" uid="uid://bb14hk4htqxwc" path="res://Sprites/grass_tileset_16x16 (1)/sprite_09.png" id="1_s7el2"]
-[ext_resource type="Script" path="res://Player/Player.gd" id="2_g4wi8"]
+[ext_resource type="Script" path="res://Player.gd" id="2_sobi2"]
 [ext_resource type="Texture2D" uid="uid://eoxiubfty1rq" path="res://Sprites/warrior spritesheet calciumtrice.png" id="3_3gmlg"]
 [ext_resource type="PackedScene" uid="uid://seqhrig28nxx" path="res://Enemies/slime.tscn" id="4_xtser"]
 [ext_resource type="PackedScene" uid="uid://br4plsxxcqhej" path="res://Utility/hurt_box.tscn" id="4_yw2t5"]
-[ext_resource type="PackedScene" uid="uid://dwkqpo4msqo3s" path="res://Utility/enemy_spawner.tscn" id="5_1samt"]
-[ext_resource type="Script" path="res://Utility/spawn_info.gd" id="7_smlp3"]
 
 [sub_resource type="Animation" id="Animation_k2emd"]
 resource_name = "idle"
@@ -69,25 +67,7 @@ size = Vector2(34, 91)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v5vqq"]
 size = Vector2(37, 100)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_sfwda"]
-
-[sub_resource type="Resource" id="Resource_hom1u"]
-script = ExtResource("7_smlp3")
-time_start = 0
-time_end = 5
-enemy = ExtResource("4_xtser")
-enemy_num = 1
-enemy_spawn_delay = 0
-
-[sub_resource type="Resource" id="Resource_8ygtw"]
-script = ExtResource("7_smlp3")
-time_start = 5
-time_end = 60
-enemy = ExtResource("4_xtser")
-enemy_num = 10
-enemy_spawn_delay = 0
-
-[node name="World" type="Node2D"]
+[node name="Node2D" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 2
@@ -98,8 +78,7 @@ region_enabled = true
 region_rect = Rect2(-0.606, -0.49, 3000, 2000)
 
 [node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
-scale = Vector2(0.8, 0.8)
-script = ExtResource("2_g4wi8")
+script = ExtResource("2_sobi2")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture_filter = 1
@@ -135,32 +114,9 @@ collision_mask = 2
 position = Vector2(1.5, 0)
 shape = SubResource("RectangleShape2D_v5vqq")
 
-[node name="Attack" type="Node2D" parent="Player"]
-scale = Vector2(1.25, 1.25)
-
-[node name="IceSpearTimer" type="Timer" parent="Player/Attack"]
-wait_time = 1.5
-
-[node name="IceSpearAttackTimer" type="Timer" parent="Player/Attack/IceSpearTimer"]
-wait_time = 0.075
-
-[node name="EnemyDetectionArea" type="Area2D" parent="Player"]
-scale = Vector2(1.25, 1.25)
-collision_layer = 4
-collision_mask = 4
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/EnemyDetectionArea"]
-scale = Vector2(66, 66)
-shape = SubResource("CircleShape2D_sfwda")
-
-[node name="EnemySpawner" parent="." instance=ExtResource("5_1samt")]
-spawns = Array[ExtResource("7_smlp3")]([SubResource("Resource_hom1u"), SubResource("Resource_8ygtw")])
+[node name="Slime" parent="." instance=ExtResource("4_xtser")]
+position = Vector2(134, 11)
 
 [connection signal="hurt" from="Player/HurtBox" to="Player" method="_on_hurt_box_hurt"]
-[connection signal="timeout" from="Player/Attack/IceSpearTimer" to="Player" method="_on_ice_spear_timer_timeout"]
-[connection signal="timeout" from="Player/Attack/IceSpearTimer/IceSpearAttackTimer" to="Player" method="_on_ice_spear_attack_timer_timeout"]
-[connection signal="body_entered" from="Player/EnemyDetectionArea" to="Player" method="_on_enemy_detection_area_body_entered"]
-[connection signal="body_exited" from="Player/EnemyDetectionArea" to="Player" method="_on_enemy_detection_area_body_exited"]
 
 [editable path="Player/HurtBox"]

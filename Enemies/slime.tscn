@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://seqhrig28nxx"]
+
+[ext_resource type="Script" path="res://Enemies/enemyAI.gd" id="1_q6058"]
+[ext_resource type="Texture2D" uid="uid://ddhevqv3lktfs" path="res://Sprites/rpgcritter update formatted transparent.png" id="2_l7rut"]
+[ext_resource type="PackedScene" uid="uid://br4plsxxcqhej" path="res://Utility/hurt_box.tscn" id="3_ai025"]
+[ext_resource type="PackedScene" uid="uid://dudmc1mkjyowc" path="res://Utility/hit_box.tscn" id="4_5p3qt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7eem"]
+size = Vector2(9.61539, 6.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uf4tj"]
+size = Vector2(17.3077, 14.4231)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gu0y8"]
+size = Vector2(14.4231, 11.0577)
+
+[node name="Slime" type="CharacterBody2D"]
+scale = Vector2(2.08, 2.08)
+collision_layer = 5
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_q6058")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_l7rut")
+hframes = 15
+vframes = 12
+frame = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.86561e-08, 3.125)
+shape = SubResource("RectangleShape2D_h7eem")
+
+[node name="HurtBox" parent="." instance=ExtResource("3_ai025")]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, 2.40385)
+shape = SubResource("RectangleShape2D_uf4tj")
+
+[node name="HitBox" parent="." instance=ExtResource("4_5p3qt")]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(-2.29249e-07, 2.64423)
+shape = SubResource("RectangleShape2D_gu0y8")
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+
+[editable path="HurtBox"]
+[editable path="HitBox"]
