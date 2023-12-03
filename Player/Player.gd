@@ -13,12 +13,13 @@ var iceSpear = preload("res://Player/Attack/ice_spear.tscn")
 
 #ice spear details
 var iceSpear_ammo = 0
-var iceSpear_baseAmmo = 3
+var iceSpear_baseAmmo = 1
 var iceSpear_attackSpeed: float = 1.5
 var iceSpear_level = 1
 
 #enemy details
 var close_enemies = []
+var is_swarm = false
 
 
 
@@ -64,7 +65,7 @@ func _process(delta):
 	else:
 		$Sprite2D/PlayerAnimation.play("idle")
 		
-func _on_hurt_box_hurt(damage):
+func _on_hurt_box_hurt(damage, _angle, _knockback_strength):
 	hp -= damage
 	print(hp)
 	

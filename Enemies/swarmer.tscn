@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://m0a8if3juqb0"]
+
+[ext_resource type="Script" path="res://Enemies/enemySwarmAI.gd" id="1_5cfm1"]
+[ext_resource type="Texture2D" uid="uid://bd0l47r7jerjx" path="res://Sprites/rpgcritters2.png" id="1_7b8ch"]
+[ext_resource type="PackedScene" uid="uid://dudmc1mkjyowc" path="res://Utility/hit_box.tscn" id="2_ascew"]
+[ext_resource type="PackedScene" uid="uid://br4plsxxcqhej" path="res://Utility/hurt_box.tscn" id="3_lb7gm"]
+[ext_resource type="AudioStream" uid="uid://dk7kc3boqwwnp" path="res://Sound/little_robot_sound_factory_Hit_02.mp3" id="5_5blrd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7eem"]
+size = Vector2(11.0577, 16.8269)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uf4tj"]
+size = Vector2(34.1346, 32.6923)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gu0y8"]
+size = Vector2(19.4712, 20.0721)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4k45"]
+
+[node name="swarmer" type="CharacterBody2D"]
+top_level = true
+scale = Vector2(0.999995, 0.999995)
+collision_layer = 5
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_5cfm1")
+movement_speed = 55.0
+metadata/_edit_horizontal_guides_ = [-100.0, 0.0]
+metadata/_edit_vertical_guides_ = [156.0]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(1.01923, 1.01923)
+texture = ExtResource("1_7b8ch")
+hframes = 2
+vframes = 5
+frame = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7.21154, 5.28846)
+shape = SubResource("RectangleShape2D_h7eem")
+
+[node name="HurtBox" parent="." instance=ExtResource("3_lb7gm")]
+collision_layer = 4
+collision_mask = 4
+HurtBoxType = 1
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(5.28846, 0.480769)
+shape = SubResource("RectangleShape2D_uf4tj")
+
+[node name="HitBox" parent="." instance=ExtResource("2_ascew")]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(8.17308, 5.76923)
+shape = SubResource("RectangleShape2D_gu0y8")
+
+[node name="sound_hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_5blrd")
+volume_db = -15.0
+
+[node name="detection_rad" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_rad"]
+scale = Vector2(15, 15)
+shape = SubResource("CircleShape2D_g4k45")
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+[connection signal="body_entered" from="detection_rad" to="." method="_on_detection_rad_body_entered"]
+[connection signal="body_exited" from="detection_rad" to="." method="_on_detection_rad_body_exited"]
+
+[editable path="HurtBox"]
+[editable path="HitBox"]

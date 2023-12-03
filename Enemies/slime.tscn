@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://seqhrig28nxx"]
+[gd_scene load_steps=9 format=3 uid="uid://seqhrig28nxx"]
 
 [ext_resource type="Script" path="res://Enemies/enemyAI.gd" id="1_q6058"]
 [ext_resource type="Texture2D" uid="uid://ddhevqv3lktfs" path="res://Sprites/rpgcritter update formatted transparent.png" id="2_l7rut"]
 [ext_resource type="PackedScene" uid="uid://br4plsxxcqhej" path="res://Utility/hurt_box.tscn" id="3_ai025"]
 [ext_resource type="PackedScene" uid="uid://dudmc1mkjyowc" path="res://Utility/hit_box.tscn" id="4_5p3qt"]
+[ext_resource type="AudioStream" uid="uid://dk7kc3boqwwnp" path="res://Sound/little_robot_sound_factory_Hit_02.mp3" id="5_6sb0w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h7eem"]
 size = Vector2(9.61539, 6.25)
@@ -35,6 +36,7 @@ shape = SubResource("RectangleShape2D_h7eem")
 [node name="HurtBox" parent="." instance=ExtResource("3_ai025")]
 collision_layer = 4
 collision_mask = 4
+HurtBoxType = 1
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2(0, 2.40385)
@@ -47,6 +49,10 @@ collision_mask = 2
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2(-2.29249e-07, 2.64423)
 shape = SubResource("RectangleShape2D_gu0y8")
+
+[node name="sound_hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_6sb0w")
+volume_db = -15.0
 
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 

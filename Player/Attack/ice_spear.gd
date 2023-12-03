@@ -11,6 +11,7 @@ var target = Vector2.ZERO
 var angle = Vector2.ZERO
 
 @onready var player = get_tree().get_first_node_in_group("player")
+signal remove_from_array(object)
 
 func _ready():
 	angle = global_position.direction_to(target)
@@ -33,6 +34,7 @@ func _physics_process(delta):
 func enemy_hit(charge = 1):
 	hp -= charge
 	if hp <= 0: 
+		emit_signal("remove_from_array", self)
 		queue_free()
 
 
