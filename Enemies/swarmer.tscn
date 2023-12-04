@@ -16,6 +16,7 @@ size = Vector2(34.1346, 32.6923)
 size = Vector2(19.4712, 20.0721)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4k45"]
+radius = 6.20003
 
 [node name="swarmer" type="CharacterBody2D"]
 top_level = true

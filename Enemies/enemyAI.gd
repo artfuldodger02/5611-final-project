@@ -13,6 +13,7 @@ var knockback = Vector2.ZERO
 var death_anim = preload("res://Enemies/explosion.tscn")
 var is_swarm = false
 
+
 signal remove_from_array(object)
 
 

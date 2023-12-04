@@ -1,9 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://brm6evk7y4fpa"]
+[gd_scene load_steps=17 format=3 uid="uid://brm6evk7y4fpa"]
 
 [ext_resource type="Texture2D" uid="uid://bb14hk4htqxwc" path="res://Sprites/grass_tileset_16x16 (1)/sprite_09.png" id="1_s7el2"]
 [ext_resource type="Script" path="res://Player/Player.gd" id="2_g4wi8"]
 [ext_resource type="Texture2D" uid="uid://eoxiubfty1rq" path="res://Sprites/warrior spritesheet calciumtrice.png" id="3_3gmlg"]
-[ext_resource type="PackedScene" uid="uid://seqhrig28nxx" path="res://Enemies/slime.tscn" id="4_xtser"]
 [ext_resource type="PackedScene" uid="uid://br4plsxxcqhej" path="res://Utility/hurt_box.tscn" id="4_yw2t5"]
 [ext_resource type="PackedScene" uid="uid://dwkqpo4msqo3s" path="res://Utility/enemy_spawner.tscn" id="5_1samt"]
 [ext_resource type="PackedScene" uid="uid://m0a8if3juqb0" path="res://Enemies/swarmer.tscn" id="6_1kk6y"]
@@ -85,7 +84,7 @@ enemy_spawn_delay = 0
 script = ExtResource("7_smlp3")
 time_start = 5
 time_end = 10
-enemy = ExtResource("4_xtser")
+enemy = ExtResource("6_1kk6y")
 enemy_num = 10
 enemy_spawn_delay = 0
 
@@ -122,7 +121,6 @@ position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_aajc6")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-enabled = false
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_left_margin = 0.1
