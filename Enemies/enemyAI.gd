@@ -41,7 +41,3 @@ func _on_hurt_box_hurt(damage, angle, knockback_strength):
 	else:
 		sound_hit.play()
 
-
-
-func _on_detection_rad_body_entered(body):
-	pass # Replace with function body.
