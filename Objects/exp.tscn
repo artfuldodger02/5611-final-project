@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cw6bsqw0uw35y"]
+
+[ext_resource type="Texture2D" uid="uid://b14bhasff3ntx" path="res://Sprites/gems_db16/sprite_2.png" id="1_rd3se"]
+[ext_resource type="Script" path="res://Objects/exp.gd" id="1_tkie2"]
+[ext_resource type="AudioStream" uid="uid://bqys5fpfvnp13" path="res://Sound/zapsplat_multimedia_game_sound_sci_fi_coin_collect_001_64987.mp3" id="3_vnl4p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_10l0h"]
+size = Vector2(16, 16)
+
+[node name="Exp" type="Area2D" groups=["loot"]]
+scale = Vector2(1.63354, 1.63354)
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_tkie2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.495)
+texture = ExtResource("1_rd3se")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_10l0h")
+
+[node name="sound_collect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_vnl4p")
+volume_db = -10.0
+pitch_scale = 1.06
+
+[connection signal="finished" from="sound_collect" to="." method="_on_sound_collect_finished"]

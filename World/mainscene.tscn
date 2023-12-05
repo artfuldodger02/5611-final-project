@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://brm6evk7y4fpa"]
+[gd_scene load_steps=23 format=3 uid="uid://brm6evk7y4fpa"]
 
 [ext_resource type="Texture2D" uid="uid://bb14hk4htqxwc" path="res://Sprites/grass_tileset_16x16 (1)/sprite_09.png" id="1_s7el2"]
 [ext_resource type="Script" path="res://Player/Player.gd" id="2_g4wi8"]
@@ -6,7 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://br4plsxxcqhej" path="res://Utility/hurt_box.tscn" id="4_yw2t5"]
 [ext_resource type="PackedScene" uid="uid://dwkqpo4msqo3s" path="res://Utility/enemy_spawner.tscn" id="5_1samt"]
 [ext_resource type="PackedScene" uid="uid://m0a8if3juqb0" path="res://Enemies/swarmer.tscn" id="6_1kk6y"]
+[ext_resource type="PackedScene" uid="uid://seqhrig28nxx" path="res://Enemies/slime.tscn" id="6_t7cp2"]
 [ext_resource type="Script" path="res://Utility/spawn_info.gd" id="7_smlp3"]
+[ext_resource type="Texture2D" uid="uid://doqug4fme4bg0" path="res://Sprites/bars/sprite_0.png" id="9_rnyv0"]
+[ext_resource type="Texture2D" uid="uid://b7fy7v41i1m5u" path="res://Sprites/bars/sprite_3.png" id="10_hg6mu"]
+[ext_resource type="FontFile" uid="uid://mldyex0yiqhe" path="res://Various/Aloevera-OVoWO.ttf" id="11_1osxp"]
 
 [sub_resource type="Animation" id="Animation_k2emd"]
 resource_name = "idle"
@@ -72,6 +76,11 @@ size = Vector2(37, 100)
 [sub_resource type="CircleShape2D" id="CircleShape2D_sfwda"]
 radius = 10.0304
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_snu6r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cij42"]
+radius = 7.018
+
 [sub_resource type="Resource" id="Resource_ws7ml"]
 script = ExtResource("7_smlp3")
 time_start = 0
@@ -84,7 +93,7 @@ enemy_spawn_delay = 0
 script = ExtResource("7_smlp3")
 time_start = 5
 time_end = 10
-enemy = ExtResource("6_1kk6y")
+enemy = ExtResource("6_t7cp2")
 enemy_num = 10
 enemy_spawn_delay = 0
 
@@ -99,7 +108,7 @@ region_enabled = true
 region_rect = Rect2(-0.606, -0.49, 3000, 2000)
 
 [node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.64, 0.64)
 script = ExtResource("2_g4wi8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
@@ -140,10 +149,23 @@ shape = SubResource("RectangleShape2D_v5vqq")
 scale = Vector2(1.25, 1.25)
 
 [node name="IceSpearTimer" type="Timer" parent="Player/Attack"]
+unique_name_in_owner = true
 wait_time = 1.5
 
 [node name="IceSpearAttackTimer" type="Timer" parent="Player/Attack/IceSpearTimer"]
+unique_name_in_owner = true
 wait_time = 0.075
+
+[node name="WhirlwindTimer" type="Timer" parent="Player/Attack"]
+unique_name_in_owner = true
+wait_time = 3.0
+
+[node name="WhirlwindAttackTimer" type="Timer" parent="Player/Attack/WhirlwindTimer"]
+unique_name_in_owner = true
+wait_time = 0.2
+
+[node name="LanceBase" type="Node2D" parent="Player/Attack"]
+unique_name_in_owner = true
 
 [node name="EnemyDetectionArea" type="Area2D" parent="Player"]
 scale = Vector2(1.25, 1.25)
@@ -155,13 +177,65 @@ monitorable = false
 scale = Vector2(66, 66)
 shape = SubResource("CircleShape2D_sfwda")
 
+[node name="GrabArea" type="Area2D" parent="Player"]
+scale = Vector2(1.5625, 1.5625)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/GrabArea"]
+scale = Vector2(10.089, 10.089)
+shape = SubResource("CircleShape2D_snu6r")
+
+[node name="CollectArea" type="Area2D" parent="Player"]
+scale = Vector2(1.5625, 1.5625)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/CollectArea"]
+scale = Vector2(3.60758, 3.60758)
+shape = SubResource("CircleShape2D_cij42")
+
 [node name="EnemySpawner" parent="." instance=ExtResource("5_1samt")]
 spawns = Array[ExtResource("7_smlp3")]([SubResource("Resource_ws7ml"), SubResource("Resource_0s7hj")])
+
+[node name="Loot" type="Node2D" parent="." groups=["loot"]]
+
+[node name="GUILayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="Control" parent="GUILayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="XpBar" type="TextureProgressBar" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_under = ExtResource("9_rnyv0")
+texture_progress = ExtResource("10_hg6mu")
+
+[node name="lbl_level" type="Label" parent="GUILayer/GUI/XpBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 32.0
+offset_top = 41.0
+offset_right = 139.0
+offset_bottom = 77.0
+theme_override_fonts/font = ExtResource("11_1osxp")
+theme_override_font_sizes/font_size = 32
+text = "Level: 1
+"
 
 [connection signal="hurt" from="Player/HurtBox" to="Player" method="_on_hurt_box_hurt"]
 [connection signal="timeout" from="Player/Attack/IceSpearTimer" to="Player" method="_on_ice_spear_timer_timeout"]
 [connection signal="timeout" from="Player/Attack/IceSpearTimer/IceSpearAttackTimer" to="Player" method="_on_ice_spear_attack_timer_timeout"]
+[connection signal="timeout" from="Player/Attack/WhirlwindTimer" to="Player" method="_on_whirlwind_timer_timeout"]
+[connection signal="timeout" from="Player/Attack/WhirlwindTimer/WhirlwindAttackTimer" to="Player" method="_on_whirlwind_attack_timer_timeout"]
 [connection signal="body_entered" from="Player/EnemyDetectionArea" to="Player" method="_on_enemy_detection_area_body_entered"]
 [connection signal="body_exited" from="Player/EnemyDetectionArea" to="Player" method="_on_enemy_detection_area_body_exited"]
+[connection signal="area_entered" from="Player/GrabArea" to="Player" method="_on_grab_area_area_entered"]
+[connection signal="area_entered" from="Player/CollectArea" to="Player" method="_on_collect_area_area_entered"]
 
 [editable path="Player/HurtBox"]

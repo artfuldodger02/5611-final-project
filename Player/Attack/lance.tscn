@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://hp4yk2vxwy5e"]
+
+[ext_resource type="Script" path="res://Player/Attack/lance.gd" id="1_0c3nq"]
+[ext_resource type="Texture2D" uid="uid://86hb8n0ehl7t" path="res://Sprites/DragonLances/sprite_2.png" id="1_iaryk"]
+[ext_resource type="AudioStream" uid="uid://dy5tccp48ghis" path="res://Sound/zapsplat_multimedia_game_sound_monster_or_dragon_hit_impact_kill_magical_78165.mp3" id="3_djyv5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qn7ts"]
+size = Vector2(34, 180)
+
+[node name="Lance" type="Area2D" groups=["attack"]]
+top_level = true
+scale = Vector2(0.32, 0.32)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_0c3nq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_iaryk")
+hframes = 3
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_qn7ts")
+disabled = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[node name="ChangeDirectionTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="ResetPosTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 31.0
+autostart = true
+
+[node name="sound_play" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_djyv5")
+volume_db = -15.0
+pitch_scale = 1.32
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="ChangeDirectionTimer" to="." method="_on_change_direction_timer_timeout"]
+[connection signal="timeout" from="ResetPosTimer" to="." method="_on_reset_pos_timer_timeout"]

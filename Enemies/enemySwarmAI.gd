@@ -4,13 +4,16 @@ extends CharacterBody2D
 var max_speed = 2.0
 @export var hp : float = 5
 @export var knockback_recovery = 3.5
+@export var xp = 3
 var knockback = Vector2.ZERO
 
 
 @onready var player = get_tree().get_first_node_in_group("player")
+@onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite = $Sprite2D
 @onready var sound_hit = $sound_hit
 var death_anim = preload("res://Enemies/explosion.tscn")
+var xp_gem = preload("res://Objects/exp.tscn")
 
 # swarming variables
 var is_swarm = true
@@ -101,6 +104,10 @@ func death():
 	enemy_death.scale = sprite.scale
 	enemy_death.global_position = global_position
 	get_parent().call_deferred("add_child", enemy_death)
+	var new_gem = xp_gem.instantiate()
+	new_gem.global_position = global_position
+	new_gem.xp = xp
+	loot_base.call_deferred("add_child", new_gem)
 	queue_free()
 	
 

@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4iig0gnko27n"]
+
+[ext_resource type="Texture2D" uid="uid://br6vpahi6my22" path="res://Sprites/whirlwind.png" id="1_iasoo"]
+[ext_resource type="Script" path="res://Player/Attack/whirlwind.gd" id="1_wnrnh"]
+[ext_resource type="AudioStream" uid="uid://ftjt4d58uhfg" path="res://Sound/zapsplat_fantasy_magic_dark_spell_cast_powerful_wind_burst_eject_001_62136.mp3" id="3_u4frx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eq7sw"]
+size = Vector2(20, 19)
+
+[node name="Whirlwind" type="Area2D" groups=["attack"]]
+top_level = true
+scale = Vector2(0.1, 0.119)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_wnrnh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_iasoo")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_eq7sw")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[node name="sound_play" type="AudioStreamPlayer2D" parent="."]
+scale = Vector2(0.806452, 0.806452)
+stream = ExtResource("3_u4frx")
+volume_db = -20.0
+pitch_scale = 1.26
+autoplay = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
