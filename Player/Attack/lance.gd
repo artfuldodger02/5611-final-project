@@ -37,12 +37,36 @@ func update_lance():
 	match level:
 		1:
 			hp = 999
+			speed = 200.0
+			damage = 10
+			knockback_strength = 100
+			paths = 1
+			attack_size = 2.5 * (1 + player.spell_size)
+			attack_speed = 5.0 * (1 - player.cooldown)
+		2:
+			hp = 999
+			speed = 300.0
+			damage = 10
+			knockback_strength = 100
+			paths = 2
+			attack_size = 2.5 * (1 + player.spell_size)
+			attack_speed = 5.0 * (1 - player.cooldown)
+		3:
+			hp = 999
 			speed = 300.0
 			damage = 10
 			knockback_strength = 100
 			paths = 3
-			attack_size = 1.0
-			attack_size = 4.0
+			attack_size = 2.5 * (1 + player.spell_size)
+			attack_speed = 5.0 * (1 - player.cooldown)
+		4:
+			hp = 999
+			speed = 300.0
+			damage = 15
+			knockback_strength = 120
+			paths = 3
+			attack_size = 2.5 * (1 + player.spell_size)
+			attack_speed = 5.0 * (1 - player.cooldown)
 			
 	scale = Vector2(0.2,0.2) * attack_size
 	attackTimer.wait_time = attack_speed

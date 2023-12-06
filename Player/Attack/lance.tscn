@@ -9,7 +9,7 @@ size = Vector2(34, 180)
 
 [node name="Lance" type="Area2D" groups=["attack"]]
 top_level = true
-scale = Vector2(0.32, 0.32)
+scale = Vector2(0.439999, 0.439999)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_0c3nq")

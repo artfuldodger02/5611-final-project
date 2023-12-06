@@ -8,7 +8,7 @@ var spr_red = preload("res://Sprites/gems_db16/sprite_4.png")
 var spr_white = preload("res://Sprites/gems_db16/sprite_5.png")
 
 var target = null
-var speed = -0.75
+var speed = -1
 
 @onready var sprite = $Sprite2D
 @onready var collision = $CollisionShape2D
@@ -25,7 +25,7 @@ func _ready():
 func _physics_process(delta):
 	if target != null:
 		global_position = global_position.move_toward(target.global_position, speed)
-		speed += 2*delta
+		speed += 3*delta
 		
 func collect():
 		sound.play()

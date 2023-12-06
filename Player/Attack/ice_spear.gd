@@ -18,11 +18,29 @@ func _ready():
 	rotation = angle.angle() + deg_to_rad(180)
 	match level:
 		1:
-			hp = 2 
+			hp = 1
 			speed = 150
 			damage = 5
 			knockback_strength = 100
-			attack_size = 1.0
+			attack_size = 1.0 * (1 + player.spell_size)
+		2:
+			hp = 1
+			speed = 150
+			damage = 5
+			knockback_strength = 100
+			attack_size = 1.0 * (1 + player.spell_size)
+		3:
+			hp = 2
+			speed = 150
+			damage = 8
+			knockback_strength = 100
+			attack_size = 1.0 * (1 + player.spell_size)
+		4:
+			hp = 2
+			speed = 150
+			damage = 8
+			knockback_strength = 100
+			attack_size = 1.0 * (1 + player.spell_size)
 			
 	var tween = create_tween()
 	tween.tween_property(self, "scale", Vector2(1,1)*attack_size, 1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
