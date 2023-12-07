@@ -64,7 +64,7 @@ var is_swarm = false
 @onready var itemOptions = preload("res://Utility/item_option.tscn")
 
 func _ready():
-	upgrade_char("iceSpear1")
+	# upgrade_char("iceSpear1")
 	$Sprite2D/PlayerAnimation.play("idle")
 	attack()
 	set_xp_bar(xp, calculate_xp_cap())

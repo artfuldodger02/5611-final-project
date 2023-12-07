@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://brm6evk7y4fpa"]
+[gd_scene load_steps=24 format=3 uid="uid://brm6evk7y4fpa"]
 
 [ext_resource type="Texture2D" uid="uid://bb14hk4htqxwc" path="res://Sprites/grass_tileset_16x16 (1)/sprite_09.png" id="1_s7el2"]
 [ext_resource type="Script" path="res://Player/Player.gd" id="2_g4wi8"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://br4plsxxcqhej" path="res://Utility/hurt_box.tscn" id="4_yw2t5"]
 [ext_resource type="PackedScene" uid="uid://dwkqpo4msqo3s" path="res://Utility/enemy_spawner.tscn" id="5_1samt"]
 [ext_resource type="PackedScene" uid="uid://m0a8if3juqb0" path="res://Enemies/swarmer.tscn" id="6_1kk6y"]
-[ext_resource type="PackedScene" uid="uid://seqhrig28nxx" path="res://Enemies/slime.tscn" id="6_t7cp2"]
 [ext_resource type="Script" path="res://Utility/spawn_info.gd" id="7_smlp3"]
 [ext_resource type="Texture2D" uid="uid://doqug4fme4bg0" path="res://Sprites/bars/sprite_0.png" id="9_rnyv0"]
 [ext_resource type="Texture2D" uid="uid://b7fy7v41i1m5u" path="res://Sprites/bars/sprite_3.png" id="10_hg6mu"]
@@ -76,7 +75,7 @@ size = Vector2(34, 91)
 size = Vector2(37, 100)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sfwda"]
-radius = 10.0304
+radius = 12.4279
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_snu6r"]
 
@@ -95,7 +94,7 @@ enemy_spawn_delay = 0
 script = ExtResource("7_smlp3")
 time_start = 5
 time_end = 10
-enemy = ExtResource("6_t7cp2")
+enemy = ExtResource("6_1kk6y")
 enemy_num = 10
 enemy_spawn_delay = 0
 
