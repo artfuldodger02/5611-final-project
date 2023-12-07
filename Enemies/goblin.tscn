@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://dk3m7scaxvl7a"]
+
+[ext_resource type="Script" path="res://Enemies/enemyGoblinAI.gd" id="1_t5eod"]
+[ext_resource type="Texture2D" uid="uid://dxdrkcsggcbg0" path="res://Sprites/sprite_0.png" id="2_3atw8"]
+[ext_resource type="PackedScene" uid="uid://br4plsxxcqhej" path="res://Utility/hurt_box.tscn" id="3_xtswf"]
+[ext_resource type="PackedScene" uid="uid://dudmc1mkjyowc" path="res://Utility/hit_box.tscn" id="4_maeen"]
+[ext_resource type="AudioStream" uid="uid://dk7kc3boqwwnp" path="res://Sound/little_robot_sound_factory_Hit_02.mp3" id="5_xeqnx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7eem"]
+size = Vector2(4.32692, 14.4231)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uf4tj"]
+size = Vector2(12.5, 18.2692)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gu0y8"]
+size = Vector2(8.65385, 16.3462)
+
+[node name="Goblin" type="CharacterBody2D"]
+scale = Vector2(2.08, 2.08)
+collision_layer = 5
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_t5eod")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2.875, -2.88462)
+scale = Vector2(0.480369, 0.531354)
+texture = ExtResource("2_3atw8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.88462, -1.44231)
+shape = SubResource("RectangleShape2D_h7eem")
+
+[node name="HurtBox" parent="." instance=ExtResource("3_xtswf")]
+collision_layer = 4
+collision_mask = 4
+HurtBoxType = 1
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(3.84615, -1.92308)
+shape = SubResource("RectangleShape2D_uf4tj")
+
+[node name="HitBox" parent="." instance=ExtResource("4_maeen")]
+position = Vector2(3.36538, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(-2.38419e-07, -1.92308)
+shape = SubResource("RectangleShape2D_gu0y8")
+
+[node name="sound_hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_xeqnx")
+volume_db = -15.0
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+
+[editable path="HurtBox"]
+[editable path="HitBox"]

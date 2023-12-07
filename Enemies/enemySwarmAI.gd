@@ -4,8 +4,10 @@ extends CharacterBody2D
 var max_speed = 2.0
 @export var hp : float = 5
 @export var knockback_recovery = 3.5
-@export var xp = 3
+@export var xp = 2
+@export var enemy_damage = 1
 var knockback = Vector2.ZERO
+var is_slime = false
 
 
 @onready var player = get_tree().get_first_node_in_group("player")
@@ -30,6 +32,7 @@ func _ready():
 	# randomize the starting directions of all swarmers
 	randomize()
 	direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized() 
+	
 
 func _physics_process(delta):
 	# flip the sprite towards the direction the swarmer is moving

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp7jli0wy5gxk"]
+
+[ext_resource type="FontFile" uid="uid://mldyex0yiqhe" path="res://Various/Aloevera-OVoWO.ttf" id="1_fwi4o"]
+[ext_resource type="Script" path="res://Utility/basic_button.gd" id="1_vdm3o"]
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(160, 60)
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("1_fwi4o")
+theme_override_font_sizes/font_size = 35
+text = "Example"
+script = ExtResource("1_vdm3o")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

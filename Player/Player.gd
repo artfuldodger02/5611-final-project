@@ -5,6 +5,9 @@ var maxhp = 100
 var speed : float = 250
 var walking : bool = false
 var last_movement = Vector2.UP
+var time = 0
+
+var menu = "res://Title_Screen/menu.tscn"
 
 # xp variables
 var xp = 0
@@ -54,6 +57,7 @@ var lance_level = 0
 #enemy details
 var close_enemies = []
 var is_swarm = false
+var is_slime = false
 
 #GUI details
 @onready var xp_bar = get_node("%XpBar")
@@ -62,14 +66,32 @@ var is_swarm = false
 @onready var upgrades = get_node("%Upgrades")
 @onready var soundLevelUp = get_node("%sound_levelup")
 @onready var itemOptions = preload("res://Utility/item_option.tscn")
+@onready var hpBar = get_node("%HealthBar")
+@onready var lblTimer = get_node("%lblTimer")
+@onready var deathPanel = get_node("%Deathpanel")
+@onready var lbl_result = get_node("%lbl_Result")
+@onready var sound_win = get_node("%sound_victory")
+@onready var sound_lose = get_node("%sound_defeat")
+@onready var hurtbox = get_node("%HurtBox")
+
+var godmode = false
+
+signal playerdeath
 
 func _ready():
-	# upgrade_char("iceSpear1")
+	upgrade_char("iceSpear1")
 	$Sprite2D/PlayerAnimation.play("idle")
 	attack()
 	set_xp_bar(xp, calculate_xp_cap())
+	_on_hurt_box_hurt(0,0,0)
+
+
+func _input(event):
+	if event.is_action_released("space"):
+		toggle_godmode()
 
 func _physics_process(delta):
+
 	
 	velocity.x = 0
 	velocity.y = 0
@@ -99,7 +121,8 @@ func _physics_process(delta):
 		walking = false
 		
 	velocity *= speed
-	
+	if hp <= 0 || time >= 310:
+		death()
 	move_and_slide()
 
 func _process(delta):
@@ -110,7 +133,8 @@ func _process(delta):
 		
 func _on_hurt_box_hurt(damage, _angle, _knockback_strength):
 	hp -= clamp(damage-armor, 1.0, 999.0)
-	print(hp)
+	hpBar.max_value = maxhp
+	hpBar.value = hp
 	
 func attack():
 	if iceSpear_level > 0:
@@ -125,7 +149,15 @@ func attack():
 	if lance_level > 0:
 		spawn_lance()
 			
-
+func toggle_godmode():
+	if not godmode:
+		godmode = true
+		$Sprite2D.modulate = Color(0,0,1)
+		hurtbox.collision.call_deferred("set","disabled", true)
+	else:
+		godmode = false
+		$Sprite2D.modulate = Color(1,1,1)
+		hurtbox.collision.call_deferred("set","disabled", false)
 
 func _on_ice_spear_timer_timeout():
 	iceSpear_ammo += iceSpear_baseAmmo + additional_attacks
@@ -233,7 +265,7 @@ func calculate_xp_cap():
 	elif xp_level < 40:
 		xp_cap = 95 * (xp_level - 19) * 8
 	else:
-		xp_cap = 255 + (xp_level - 39) * 12
+		xp_cap = 255 + (xp_level - 39) * 10
 	return xp_cap
 	
 func set_xp_bar(set_val = 1, set_max_val = 100):
@@ -341,3 +373,32 @@ func get_rand_item():
 		return randomitem
 	else:
 		return null
+		
+func change_time(argtime = 0):
+	time = argtime
+	var get_min = int(time/60.0)
+	var get_sec = time % 60
+	if get_min < 10:
+		get_min = str(0,get_min)
+	if get_sec < 10:
+		get_sec = str(0,get_sec)
+	lblTimer.text = str(get_min, ":", get_sec)
+	
+func death():
+	emit_signal("playerdeath")
+	deathPanel.visible = true
+	get_tree().paused = true
+	var tween = deathPanel.create_tween()
+	tween.tween_property(deathPanel, "position", Vector2(360,50), 3.0).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.play()
+	if time >= 300:
+		lbl_result.text = "A Winner is You!"
+		sound_win.play()
+	else:
+		lbl_result.text = "What a Horrible Night to Lose a Game..."
+		sound_lose.play()
+
+
+func _on_button_menu_click_end():
+	get_tree().paused = false
+	get_tree().quit()

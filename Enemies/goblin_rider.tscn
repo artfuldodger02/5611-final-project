@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://dyopwibacswmy"]
+
+[ext_resource type="Script" path="res://Enemies/enemyGoblinAI.gd" id="1_0j48q"]
+[ext_resource type="Texture2D" uid="uid://dqf2vnc11n61q" path="res://Sprites/goblin_rider_fixed.png" id="2_g03pt"]
+[ext_resource type="PackedScene" uid="uid://br4plsxxcqhej" path="res://Utility/hurt_box.tscn" id="3_hry3g"]
+[ext_resource type="PackedScene" uid="uid://dudmc1mkjyowc" path="res://Utility/hit_box.tscn" id="4_425wl"]
+[ext_resource type="AudioStream" uid="uid://dk7kc3boqwwnp" path="res://Sound/little_robot_sound_factory_Hit_02.mp3" id="5_3i20e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7eem"]
+size = Vector2(19.3333, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uf4tj"]
+size = Vector2(34.1731, 33.8013)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gu0y8"]
+size = Vector2(24, 27.8398)
+
+[node name="Goblin_Rider" type="CharacterBody2D"]
+scale = Vector2(3, 3)
+collision_layer = 5
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_0j48q")
+movement_speed = 30.0
+hp = 50.0
+knockback_recovery = 8.0
+xp = 5
+enemy_damage = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -0.333333)
+scale = Vector2(0.480369, 0.531354)
+texture = ExtResource("2_g03pt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.33333, 5.66667)
+shape = SubResource("RectangleShape2D_h7eem")
+
+[node name="HurtBox" parent="." instance=ExtResource("3_hry3g")]
+position = Vector2(26.3333, 21.3333)
+collision_layer = 4
+collision_mask = 4
+HurtBoxType = 1
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(-26.4199, -16.5673)
+shape = SubResource("RectangleShape2D_uf4tj")
+
+[node name="HitBox" parent="." instance=ExtResource("4_425wl")]
+position = Vector2(7.66667, -0.333333)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(-6.33333, 3.33333)
+shape = SubResource("RectangleShape2D_gu0y8")
+
+[node name="sound_hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_3i20e")
+volume_db = -15.0
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+
+[editable path="HurtBox"]
+[editable path="HitBox"]

@@ -5,8 +5,11 @@ extends Node2D
 
 @onready var player = get_tree().get_first_node_in_group("player")
 
-var time = 0
+@export var time = 0
+signal changetime(time)
 
+func _ready():
+	connect("changetime", Callable(player, "change_time"))
 
 
 func _on_timer_timeout():
@@ -26,7 +29,7 @@ func _on_timer_timeout():
 					add_child(enemy_spawn)
 					#print("Spawned new enemy at ", enemy_spawn.global_position)
 					counter += 1
-					
+	emit_signal("changetime",time)
 					
 					
 					

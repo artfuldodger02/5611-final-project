@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://seqhrig28nxx"]
+[gd_scene load_steps=11 format=3 uid="uid://seqhrig28nxx"]
 
-[ext_resource type="Script" path="res://Enemies/enemyAI.gd" id="1_q6058"]
+[ext_resource type="Script" path="res://Enemies/enemySlimeAI.gd" id="1_xi263"]
 [ext_resource type="Texture2D" uid="uid://ddhevqv3lktfs" path="res://Sprites/rpgcritter update formatted transparent.png" id="2_l7rut"]
 [ext_resource type="PackedScene" uid="uid://br4plsxxcqhej" path="res://Utility/hurt_box.tscn" id="3_ai025"]
 [ext_resource type="PackedScene" uid="uid://dudmc1mkjyowc" path="res://Utility/hit_box.tscn" id="4_5p3qt"]
 [ext_resource type="AudioStream" uid="uid://dk7kc3boqwwnp" path="res://Sound/little_robot_sound_factory_Hit_02.mp3" id="5_6sb0w"]
+[ext_resource type="AudioStream" uid="uid://cp5fsg0u48qfn" path="res://Sound/zapsplat_cartoon_slime_big_squelch_48195.mp3" id="6_dm84y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h7eem"]
 size = Vector2(9.61539, 6.25)
@@ -15,12 +16,15 @@ size = Vector2(17.3077, 14.4231)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gu0y8"]
 size = Vector2(14.4231, 11.0577)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_gly8t"]
+radius = 32.6958
+
 [node name="Slime" type="CharacterBody2D"]
 scale = Vector2(2.08, 2.08)
 collision_layer = 5
 collision_mask = 5
 motion_mode = 1
-script = ExtResource("1_q6058")
+script = ExtResource("1_xi263")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -54,7 +58,24 @@ shape = SubResource("RectangleShape2D_gu0y8")
 stream = ExtResource("5_6sb0w")
 volume_db = -15.0
 
+[node name="sound_combine" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_dm84y")
+volume_db = -8.5
+pitch_scale = 1.51
+attenuation = 4.75683
+
+[node name="Combine_area" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 2.40385)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Combine_area"]
+shape = SubResource("CircleShape2D_gly8t")
+
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+[connection signal="body_entered" from="Combine_area" to="." method="_on_combine_area_body_entered"]
+[connection signal="body_exited" from="Combine_area" to="." method="_on_combine_area_body_exited"]
 
 [editable path="HurtBox"]
 [editable path="HitBox"]

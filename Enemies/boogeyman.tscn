@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://belajbw01dwip"]
+
+[ext_resource type="Script" path="res://Enemies/enemyGoblinAI.gd" id="1_yv5sv"]
+[ext_resource type="Texture2D" uid="uid://ctyvub86iq6uh" path="res://Sprites/boogeyman_fixed.png" id="2_7wi43"]
+[ext_resource type="PackedScene" uid="uid://br4plsxxcqhej" path="res://Utility/hurt_box.tscn" id="3_f6sq1"]
+[ext_resource type="PackedScene" uid="uid://dudmc1mkjyowc" path="res://Utility/hit_box.tscn" id="4_cnyrj"]
+[ext_resource type="AudioStream" uid="uid://dk7kc3boqwwnp" path="res://Sound/little_robot_sound_factory_Hit_02.mp3" id="5_eqmdm"]
+[ext_resource type="AudioStream" uid="uid://00qwo7kef6e4" path="res://Sound/zapsplat_horror_monster_very_aggressive_loud_scary_roar_scream_growl_006_73687.mp3" id="6_rh2wo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7eem"]
+size = Vector2(8.86665, 24.9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uf4tj"]
+size = Vector2(36.0866, 41.5006)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gu0y8"]
+size = Vector2(26, 38.2)
+
+[node name="Boogeyman" type="CharacterBody2D"]
+scale = Vector2(5, 5)
+collision_layer = 5
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_yv5sv")
+movement_speed = 1000.0
+hp = 9999.0
+knockback_recovery = 100.0
+xp = 100
+enemy_damage = 100
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-4.80769, -0.480769)
+scale = Vector2(0.480369, 0.531354)
+texture = ExtResource("2_7wi43")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3.03332, -0.650001)
+shape = SubResource("RectangleShape2D_h7eem")
+disabled = true
+
+[node name="HurtBox" parent="." instance=ExtResource("3_f6sq1")]
+collision_layer = 4
+collision_mask = 4
+HurtBoxType = 1
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(-4.75672, -1.15032)
+shape = SubResource("RectangleShape2D_uf4tj")
+
+[node name="HitBox" parent="." instance=ExtResource("4_cnyrj")]
+position = Vector2(3.36538, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(-5.96538, -1.3)
+shape = SubResource("RectangleShape2D_gu0y8")
+
+[node name="sound_hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_eqmdm")
+volume_db = -15.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_rh2wo")
+autoplay = true
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+
+[editable path="HurtBox"]
+[editable path="HitBox"]

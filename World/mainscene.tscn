@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://brm6evk7y4fpa"]
+[gd_scene load_steps=47 format=3 uid="uid://brm6evk7y4fpa"]
 
 [ext_resource type="Texture2D" uid="uid://bb14hk4htqxwc" path="res://Sprites/grass_tileset_16x16 (1)/sprite_09.png" id="1_s7el2"]
 [ext_resource type="Script" path="res://Player/Player.gd" id="2_g4wi8"]
@@ -6,12 +6,22 @@
 [ext_resource type="PackedScene" uid="uid://br4plsxxcqhej" path="res://Utility/hurt_box.tscn" id="4_yw2t5"]
 [ext_resource type="PackedScene" uid="uid://dwkqpo4msqo3s" path="res://Utility/enemy_spawner.tscn" id="5_1samt"]
 [ext_resource type="PackedScene" uid="uid://m0a8if3juqb0" path="res://Enemies/swarmer.tscn" id="6_1kk6y"]
+[ext_resource type="PackedScene" uid="uid://seqhrig28nxx" path="res://Enemies/slime.tscn" id="6_qeh38"]
 [ext_resource type="Script" path="res://Utility/spawn_info.gd" id="7_smlp3"]
+[ext_resource type="PackedScene" uid="uid://c2dp8yxevmwue" path="res://Enemies/goblin_berserker.tscn" id="9_rnjkq"]
 [ext_resource type="Texture2D" uid="uid://doqug4fme4bg0" path="res://Sprites/bars/sprite_0.png" id="9_rnyv0"]
 [ext_resource type="Texture2D" uid="uid://b7fy7v41i1m5u" path="res://Sprites/bars/sprite_3.png" id="10_hg6mu"]
 [ext_resource type="FontFile" uid="uid://mldyex0yiqhe" path="res://Various/Aloevera-OVoWO.ttf" id="11_1osxp"]
+[ext_resource type="PackedScene" uid="uid://dyopwibacswmy" path="res://Enemies/goblin_rider.tscn" id="11_vtt8s"]
+[ext_resource type="PackedScene" uid="uid://dk3m7scaxvl7a" path="res://Enemies/goblin.tscn" id="12_nd717"]
 [ext_resource type="AudioStream" uid="uid://b2jvot0rx68np" path="res://Sound/zapsplat_multimedia_game_sound_advance_level_up_complete_bright_positive_003_97627.mp3" id="12_uv3ek"]
-[ext_resource type="PackedScene" uid="uid://cw6bsqw0uw35y" path="res://Objects/exp.tscn" id="14_p4w7u"]
+[ext_resource type="Texture2D" uid="uid://dcd5tsrvu5ht2" path="res://Sprites/bars/sprite_2.png" id="12_yrhiw"]
+[ext_resource type="PackedScene" uid="uid://belajbw01dwip" path="res://Enemies/boogeyman.tscn" id="13_sqoy2"]
+[ext_resource type="AudioStream" uid="uid://b47guc031irsb" path="res://Sound/victory.mp3" id="18_1gint"]
+[ext_resource type="AudioStream" uid="uid://cl212ij8tdx0v" path="res://Sound/defeat.mp3" id="19_css6y"]
+[ext_resource type="PackedScene" uid="uid://cp7jli0wy5gxk" path="res://Utility/basic_button.tscn" id="20_vr7k1"]
+[ext_resource type="AudioStream" uid="uid://cymmctyubt7eq" path="res://Sound/game_theme.mp3" id="21_n72ux"]
+[ext_resource type="Script" path="res://World/sound_music.gd" id="22_r030b"]
 
 [sub_resource type="Animation" id="Animation_k2emd"]
 resource_name = "idle"
@@ -82,21 +92,125 @@ radius = 12.4279
 [sub_resource type="CircleShape2D" id="CircleShape2D_cij42"]
 radius = 7.018
 
-[sub_resource type="Resource" id="Resource_ws7ml"]
+[sub_resource type="Resource" id="Resource_ovypm"]
 script = ExtResource("7_smlp3")
 time_start = 0
-time_end = 5
+time_end = 30
+enemy = ExtResource("12_nd717")
+enemy_num = 1
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_8tvol"]
+script = ExtResource("7_smlp3")
+time_start = 30
+time_end = 60
+enemy = ExtResource("6_qeh38")
+enemy_num = 3
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_wf2yh"]
+script = ExtResource("7_smlp3")
+time_start = 60
+time_end = 90
+enemy = ExtResource("9_rnjkq")
+enemy_num = 2
+enemy_spawn_delay = 1
+
+[sub_resource type="Resource" id="Resource_uty0k"]
+script = ExtResource("7_smlp3")
+time_start = 90
+time_end = 120
 enemy = ExtResource("6_1kk6y")
+enemy_num = 4
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_d7a5t"]
+script = ExtResource("7_smlp3")
+time_start = 120
+time_end = 150
+enemy = ExtResource("12_nd717")
+enemy_num = 7
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_imnxn"]
+script = ExtResource("7_smlp3")
+time_start = 120
+time_end = 150
+enemy = ExtResource("9_rnjkq")
+enemy_num = 2
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_4llc8"]
+script = ExtResource("7_smlp3")
+time_start = 150
+time_end = 180
+enemy = ExtResource("6_qeh38")
+enemy_num = 8
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_6qixj"]
+script = ExtResource("7_smlp3")
+time_start = 180
+time_end = 210
+enemy = ExtResource("11_vtt8s")
+enemy_num = 1
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_jmofb"]
+script = ExtResource("7_smlp3")
+time_start = 180
+time_end = 210
+enemy = ExtResource("12_nd717")
 enemy_num = 5
 enemy_spawn_delay = 0
 
-[sub_resource type="Resource" id="Resource_0s7hj"]
+[sub_resource type="Resource" id="Resource_5i0nc"]
 script = ExtResource("7_smlp3")
-time_start = 5
-time_end = 10
+time_start = 210
+time_end = 240
 enemy = ExtResource("6_1kk6y")
-enemy_num = 10
+enemy_num = 8
 enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_7endb"]
+script = ExtResource("7_smlp3")
+time_start = 240
+time_end = 300
+enemy = ExtResource("9_rnjkq")
+enemy_num = 4
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_sl4e6"]
+script = ExtResource("7_smlp3")
+time_start = 240
+time_end = 300
+enemy = ExtResource("11_vtt8s")
+enemy_num = 1
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_bjp2p"]
+script = ExtResource("7_smlp3")
+time_start = 240
+time_end = 300
+enemy = ExtResource("6_qeh38")
+enemy_num = 3
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_kqoyr"]
+script = ExtResource("7_smlp3")
+time_start = 240
+time_end = 300
+enemy = ExtResource("6_1kk6y")
+enemy_num = 3
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_qokne"]
+script = ExtResource("7_smlp3")
+time_start = 300
+time_end = 302
+enemy = ExtResource("13_sqoy2")
+enemy_num = 1
+enemy_spawn_delay = 2
 
 [node name="World" type="Node2D"]
 
@@ -139,6 +253,7 @@ drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
 [node name="HurtBox" parent="Player" instance=ExtResource("4_yw2t5")]
+unique_name_in_owner = true
 collision_layer = 2
 collision_mask = 2
 
@@ -197,7 +312,7 @@ scale = Vector2(3.60758, 3.60758)
 shape = SubResource("CircleShape2D_cij42")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("5_1samt")]
-spawns = Array[ExtResource("7_smlp3")]([SubResource("Resource_ws7ml"), SubResource("Resource_0s7hj")])
+spawns = Array[ExtResource("7_smlp3")]([SubResource("Resource_ovypm"), SubResource("Resource_8tvol"), SubResource("Resource_wf2yh"), SubResource("Resource_uty0k"), SubResource("Resource_d7a5t"), SubResource("Resource_imnxn"), SubResource("Resource_4llc8"), SubResource("Resource_6qixj"), SubResource("Resource_jmofb"), SubResource("Resource_5i0nc"), SubResource("Resource_7endb"), SubResource("Resource_sl4e6"), SubResource("Resource_bjp2p"), SubResource("Resource_kqoyr"), SubResource("Resource_qokne")])
 
 [node name="Loot" type="Node2D" parent="." groups=["loot"]]
 
@@ -208,6 +323,27 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 640.0
 offset_bottom = 360.0
+
+[node name="lblTimer" type="Label" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 538.0
+offset_top = 35.0
+offset_right = 615.0
+offset_bottom = 69.0
+theme_override_fonts/font = ExtResource("11_1osxp")
+theme_override_font_sizes/font_size = 30
+text = "00:00"
+
+[node name="ColorRect" type="ColorRect" parent="GUILayer/GUI/lblTimer"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 35.0
+offset_bottom = 32.0
+scale = Vector2(2.16, 1)
+color = Color(0.321569, 0.321569, 0.321569, 0.713726)
 
 [node name="XpBar" type="TextureProgressBar" parent="GUILayer/GUI"]
 unique_name_in_owner = true
@@ -227,6 +363,25 @@ offset_bottom = 77.0
 theme_override_fonts/font = ExtResource("11_1osxp")
 theme_override_font_sizes/font_size = 32
 text = "Level: 1
+"
+
+[node name="HealthBar" type="TextureProgressBar" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 851.0
+offset_right = 1151.0
+offset_bottom = 100.0
+texture_under = ExtResource("9_rnyv0")
+texture_progress = ExtResource("12_yrhiw")
+
+[node name="lblHealth" type="Label" parent="GUILayer/GUI/HealthBar"]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 37.0
+offset_right = 77.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("11_1osxp")
+text = "HP
 "
 
 [node name="LevelUp" type="Panel" parent="GUILayer/GUI"]
@@ -262,10 +417,58 @@ unique_name_in_owner = true
 stream = ExtResource("12_uv3ek")
 volume_db = -5.0
 
-[node name="Exp" parent="." instance=ExtResource("14_p4w7u")]
-position = Vector2(173, 0)
-xp = 10
+[node name="Deathpanel" type="Panel" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+layout_mode = 0
+offset_left = 373.0
+offset_top = 660.0
+offset_right = 773.0
+offset_bottom = 1160.0
 
+[node name="lbl_Result" type="Label" parent="GUILayer/GUI/Deathpanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 9.0
+offset_top = 16.0
+offset_right = 391.0
+offset_bottom = 123.0
+theme_override_fonts/font = ExtResource("11_1osxp")
+theme_override_font_sizes/font_size = 25
+text = "Result
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="sound_victory" type="AudioStreamPlayer2D" parent="GUILayer/GUI/Deathpanel"]
+unique_name_in_owner = true
+position = Vector2(2, 0)
+stream = ExtResource("18_1gint")
+volume_db = -10.0
+
+[node name="sound_defeat" type="AudioStreamPlayer2D" parent="GUILayer/GUI/Deathpanel"]
+unique_name_in_owner = true
+stream = ExtResource("19_css6y")
+volume_db = -10.0
+
+[node name="button_menu" parent="GUILayer/GUI/Deathpanel" instance=ExtResource("20_vr7k1")]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 391.0
+offset_right = 285.0
+offset_bottom = 451.0
+text = "Quit
+"
+
+[node name="sound_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_n72ux")
+volume_db = -20.0
+autoplay = true
+script = ExtResource("22_r030b")
+
+[connection signal="playerdeath" from="Player" to="sound_music" method="_on_player_playerdeath"]
 [connection signal="hurt" from="Player/HurtBox" to="Player" method="_on_hurt_box_hurt"]
 [connection signal="timeout" from="Player/Attack/IceSpearTimer" to="Player" method="_on_ice_spear_timer_timeout"]
 [connection signal="timeout" from="Player/Attack/IceSpearTimer/IceSpearAttackTimer" to="Player" method="_on_ice_spear_attack_timer_timeout"]
@@ -275,5 +478,6 @@ xp = 10
 [connection signal="body_exited" from="Player/EnemyDetectionArea" to="Player" method="_on_enemy_detection_area_body_exited"]
 [connection signal="area_entered" from="Player/GrabArea" to="Player" method="_on_grab_area_area_entered"]
 [connection signal="area_entered" from="Player/CollectArea" to="Player" method="_on_collect_area_area_entered"]
+[connection signal="click_end" from="GUILayer/GUI/Deathpanel/button_menu" to="Player" method="_on_button_menu_click_end"]
 
 [editable path="Player/HurtBox"]

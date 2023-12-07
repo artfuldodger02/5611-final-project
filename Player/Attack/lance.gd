@@ -82,6 +82,7 @@ func _physics_process(delta):
 			return_speed = 100
 		position += player_angle * return_speed * delta
 		rotation = global_position.direction_to(player.global_position).angle() - deg_to_rad(90)
+		
 
 func add_paths():
 	sound_play.play()

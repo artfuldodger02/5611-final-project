@@ -23,7 +23,7 @@ const UPGRADES = {
 		},
 		
 	"icespear3": {
-		"icon": WEAPON_PATH + "ice_spear.png",
+		"icon": WEAPON_PATH + "sprite_1.png",
 		"displayname": "Ice Spear",
 		"details": "Ice Spears now pass through another enemy and do additional damage",
 		"level": "Level: 3",
@@ -31,7 +31,7 @@ const UPGRADES = {
 		"type": "weapon"
 	},
 	"icespear4": {
-		"icon": WEAPON_PATH + "ice_spear.png",
+		"icon": WEAPON_PATH + "sprite_1.png",
 		"displayname": "Ice Spear",
 		"details": "An additional 2 Ice Spears are thrown",
 		"level": "Level: 4",
@@ -40,7 +40,7 @@ const UPGRADES = {
 		},
 		
 	"dragonlance1": {
-		"icon": WEAPON_PATH + "dragon head.png",
+		"icon": WEAPON_PATH + "sprite_5.png",
 		"displayname": "Dragon Lance",
 		"details": "A draconic lance will follow you and attack random enemies",
 		"level": "Level: 1",
@@ -48,7 +48,7 @@ const UPGRADES = {
 		"type": "weapon"
 	},
 	"dragonlance2": {
-		"icon": WEAPON_PATH + "dragon head.png",
+		"icon": WEAPON_PATH + "sprite_5.png",
 		"displayname": "Dragon Lance",
 		"details": "The lance will now attack an additional enemy",
 		"level": "Level: 2",
@@ -56,7 +56,7 @@ const UPGRADES = {
 		"type": "weapon"
 	},
 	"dragonlance3": {
-		"icon": WEAPON_PATH + "dragon head.png",
+		"icon": WEAPON_PATH + "sprite_5.png",
 		"displayname": "Dragon Lance",
 		"details": "The lance will now attack another additional enemy",
 		"level": "Level: 3",
@@ -64,7 +64,7 @@ const UPGRADES = {
 		"type": "weapon"
 	},
 	"dragonlance4": {
-		"icon": WEAPON_PATH + "dragon head.png",
+		"icon": WEAPON_PATH + "sprite_5.png",
 		"displayname": "Dragon Lance",
 		"details": "The lance now does more damage and knockback",
 		"level": "Level: 4",
